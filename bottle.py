@@ -350,7 +350,8 @@ class Bottle(object):
         self.serve = True
         self.castfilter = []
         if autojson and json_dumps:
-            self.add_filter(dict, dict2json)
+            self.add_filter(list, obj2json)
+            self.add_filter(dict, obj2json)
 
     def mount(self, app, script_path):
         ''' Mount a Bottle application to a specific URL prefix '''
@@ -933,9 +934,9 @@ class AppStack(list):
 
 # Output filter
 
-def dict2json(d):
+def obj2json(obj):
     response.content_type = 'application/json'
-    return json_dumps(d)
+    return json_dumps(obj)
 
 
 def abort(code=500, text='Unknown Error: Appliction stopped.'):
